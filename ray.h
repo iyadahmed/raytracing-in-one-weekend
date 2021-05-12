@@ -9,9 +9,9 @@ typedef struct ray
 	vec3 dir;
 } ray;
 
-double * ray_at(ray r, double t)
+double *ray_at(double *out, ray r, double t)
 {
-	return add(r.orig, scale(r.dir, t));
+	return add(out, r.orig, scale(out, r.dir, t));
 }
 
 #endif
