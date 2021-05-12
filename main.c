@@ -2,24 +2,25 @@
 #include <stdlib.h>
 #include "ppmio.h"
 
-int main(int argc, char *argv[]) {
-	unsigned int width = 2048;
-	unsigned int height = 2048;
-	// Create and fill data
+int main(int argc, char *argv[])
+{
+	unsigned int width = 1024;
+	unsigned int height = 512;
 	unsigned char *data = (unsigned char *)malloc(sizeof(unsigned char) * width * height * 3);
-	unsigned char *tmp_data = data;
+	unsigned char *orig_data = data;
 	int i, j, k;
-	for (i=0; i<width; i++)
+	for (j=0; j<height; j++)
 	{
-		for (j=0; j<height; j++)
+		for (i=0; i<width; i++)
 		{
-			*tmp_data = (unsigned char)(((float)i / height) * 255);
-			*(tmp_data+1) = (unsigned char)(((float)j / height) * 255);
-			*(tmp_data+2) = 0;
-			tmp_data += 3;
+			// TODO: Render Code
+			*data = (unsigned char)(((float)i / width) * 255);
+			*(data+1) = (unsigned char)(((float)j / height) * 255);
+			*(data+2) = 0;
+			data += 3;
 		}
 	}
-	write_ppm(data, width, height);
+	write_ppm(orig_data, width, height);
 	free(data);
 	return 0;
 }
