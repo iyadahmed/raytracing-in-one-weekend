@@ -9,9 +9,9 @@ int main(int argc, char *argv[])
 	unsigned char *data = (unsigned char *)malloc(sizeof(unsigned char) * width * height * 3);
 	unsigned char *orig_data = data;
 	int i, j, k;
-	for (j=0; j<height; j++)
+	for (j=height-1; j>=0; --j)
 	{
-		for (i=0; i<width; i++)
+		for (i=0; i<width; ++i)
 		{
 			// TODO: Render Code
 			*data = (unsigned char)(((float)i / width) * 255);
