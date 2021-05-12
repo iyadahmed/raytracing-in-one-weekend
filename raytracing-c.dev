@@ -70,8 +70,8 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit4]
-FileName=main.cpp
+[Unit1]
+FileName=ppmio.h
 CompileCpp=0
 Folder=
 Compile=1
@@ -80,8 +80,8 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit1]
-FileName=ppmio.h
+[Unit4]
+FileName=main.c
 CompileCpp=0
 Folder=
 Compile=1
