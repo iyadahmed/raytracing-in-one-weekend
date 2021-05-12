@@ -3,11 +3,6 @@
 
 #include <stdio.h>
 
-void write_color(unsigned char rgb[3])
-{
-    fwrite(rgb, sizeof(unsigned char), 3, fptr);	
-}
-
 void write_ppm()
 {
 	int width = 256;
@@ -31,7 +26,7 @@ void write_ppm()
 			data[i][j][2] = 0;
 		}
 	}
-	
+	fwrite(data, sizeof(unsigned char), width * height * 3, fptr);
 	fclose(fptr);
 }
 
