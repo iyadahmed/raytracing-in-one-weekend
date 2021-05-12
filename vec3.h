@@ -3,6 +3,8 @@
 
 #include <math.h>
 
+// TODO: vec3 struct
+
 typedef double vec3[3];
 typedef vec3 color;
 typedef vec3 point3;
@@ -13,6 +15,15 @@ double * add(vec3 a, vec3 b)
 	out[0] = a[0] + b[0];
 	out[1] = a[1] + b[1];
 	out[2] = a[2] + b[2];
+	return out;
+}
+
+double * sub(vec3 a, vec3 b)
+{
+	static vec3 out;
+	out[0] = a[0] - b[0];
+	out[1] = a[1] - b[1];
+	out[2] = a[2] - b[2];
 	return out;
 }
 
