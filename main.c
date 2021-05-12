@@ -6,21 +6,22 @@ int main(int argc, char *argv[])
 {
 	unsigned int width = 1024;
 	unsigned int height = 512;
-	unsigned char *data = (unsigned char *)malloc(sizeof(unsigned char) * width * height * 3);
+	unsigned char *data = (unsigned char *)malloc(width * height * 3);
 	unsigned char *orig_data = data;
 	int i, j, k;
-	for (j=height-1; j>=0; --j)
+	int foo = 0;
+	for (j = height-1; j >= 0; j--)
 	{
-		for (i=0; i<width; ++i)
+		for (i = 0; i < width; i++)
 		{
 			// TODO: Render Code
 			*data = (unsigned char)(((float)i / width) * 255);
 			*(data+1) = (unsigned char)(((float)j / height) * 255);
-			*(data+2) = 0;
+			*(data+2) = 127;
 			data += 3;
 		}
 	}
 	write_ppm(orig_data, width, height);
-	free(data);
+	free(orig_data);
 	return 0;
 }
