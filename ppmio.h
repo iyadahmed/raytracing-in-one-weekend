@@ -3,30 +3,20 @@
 
 #include <stdio.h>
 
-void write_ppm()
+void write_ppm(unsigned char *data, unsigned int width, unsigned int height)
 {
-	int width = 256;
-	int height = 256;
-	FILE *fptr;
-	fptr = fopen("image.ppm", "wb");
+	// Open File
+	FILE *fptr = fopen("image.ppm", "wb");
 	if (fptr == NULL)
 	{
 		printf("Erorr opening file\n");
 		exit(1);
 	}
+	// Write Header
 	fprintf(fptr, "P6\n%d %d\n255\n", width, height);
-	unsigned char data[width][height][3];
-	int i, j, k;
-	for (j=0; j<width; j++)
-	{
-		for (i=0; i<height; i++)
-		{
-			data[i][j][0] = (unsigned char)(((float)j / width) * 255);
-			data[i][j][1] = 0;
-			data[i][j][2] = 0;
-		}
-	}
+	// Write Data
 	fwrite(data, sizeof(unsigned char), width * height * 3, fptr);
+	// Close File
 	fclose(fptr);
 }
 
