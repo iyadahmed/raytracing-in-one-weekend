@@ -14,14 +14,14 @@ double hit_sphere(const double *center, double radius, const ray *r) {
 	oc[0] = r->orig[0] - center[0];
 	oc[1] = r->orig[1] - center[1];
 	oc[2] = r->orig[2] - center[2];
-	double a = dot(r->dir, r->dir);
-	double b = 2.0 * dot(oc, r->dir);
-	double c = dot(oc, oc) - radius*radius;
-	double discriminant = b*b - 4*a*c;
+	double a = length_sq(r->dir);
+	double half_b = dot(oc, r->dir);
+	double c = length_sq(oc) - radius*radius;
+	double discriminant = half_b*half_b - a*c;
 	if (discriminant < 0) {
         return -1.0;
     } else {
-        return (-b - sqrt(discriminant) ) / (2.0*a);
+        return (-half_b - sqrt(discriminant) ) / a;
     }
 }
 
