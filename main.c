@@ -57,8 +57,8 @@ void write_color(unsigned char *buf, double *col) {
 int main(int argc, char *argv[]) {
 	// Image
 	const float aspect_ratio = 16.0 / 9.0;
-	const int image_width = 4096;
-	const int image_height = (int)(image_width / aspect_ratio);
+	const unsigned int image_width = 1920;
+	const unsigned int image_height = (unsigned int)(image_width / aspect_ratio);
 
 	// Camera
 	const float viewport_height = 2.0;
@@ -80,10 +80,19 @@ int main(int argc, char *argv[]) {
 	r.orig[2] = origin[2];
 
 	color final_color;
-
+	final_color[0] = 1;
+	final_color[1] = 0;
+	final_color[2] = 1;
+	
 	unsigned char *buf = (unsigned char *)malloc(image_width * image_height * 3);
+	if (buf == NULL)
+	{
+		printf("Failed to allocate memory.\n");
+		exit(1);
+	}
 	unsigned char *tmp_buf = buf;
 	int i, j;
+	double u, v;
 	double time = 0;
 	clock_t begin;
 	for (j = image_height-1; j >= 0; j--) {
@@ -92,8 +101,8 @@ int main(int argc, char *argv[]) {
 		begin = clock();
 		for (i = 0; i < image_width; i++) {
 			// TODO: Render Code
-			double u = (double)i / image_width;
-			double v = (double)j / image_height;
+			u = (double)i / image_width;
+			v = (double)j / image_height;
 
 			r.dir[0] = lower_left_corner[0] + u*horizontal[0] + v*vertical[0] - origin[0];
 			r.dir[1] = lower_left_corner[1] + u*horizontal[1] + v*vertical[1] - origin[1];
