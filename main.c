@@ -8,7 +8,8 @@
 
 #define lerp(a, b, t) ((1.0-t) + t * b)
 
-bool hit_sphere(const double *center, double radius, const ray *r) {
+
+double hit_sphere(const double *center, double radius, const ray *r) {
 	vec3 oc;
 	oc[0] = r->orig[0] - center[0];
 	oc[1] = r->orig[1] - center[1];
@@ -17,24 +18,29 @@ bool hit_sphere(const double *center, double radius, const ray *r) {
 	double b = 2.0 * dot(oc, r->dir);
 	double c = dot(oc, oc) - radius*radius;
 	double discriminant = b*b - 4*a*c;
-	return (discriminant > 0);
+	if (discriminant < 0) {
+        return -1.0;
+    } else {
+        return (-b - sqrt(discriminant) ) / (2.0*a);
+    }
 }
 
 
 double *ray_color(double *out, ray *r) {
-	if (hit_sphere((point3) {
-	0,0,-1
-}, 0.5, r)) {
-		out[0] = 1;
-		out[1] = 0;
-		out[2] = 0;
-		return out;
-	}
-
+    double t = hit_sphere((point3){0,0,-1}, 0.5, r);
+    if (t > 0.0) {
+        vec3 N;
+		normalize(N, sub(N, ray_at(N, r, t), (vec3){0,0,-1}));
+		out[0] = N[0]+1;
+		out[1] = N[1]+1;
+		out[2] = N[2]+1;
+		scale(out, out, 0.5);
+        return out;
+    }
 
 	vec3 unit_direction;
 	normalize(unit_direction, r->dir);
-	double t = 0.5*(unit_direction[1] + 1.0);
+	t = 0.5*(unit_direction[1] + 1.0);
 	out[0] = lerp(1, .5, t);
 	out[1] = lerp(1, .7, t);
 	out[2] = 1.0;
