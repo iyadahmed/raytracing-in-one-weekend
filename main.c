@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <time.h>
 #include "ppmio.h"
 #include "vec3.h"
@@ -7,8 +8,30 @@
 
 #define lerp(a, b, t) ((1.0-t) + t * b)
 
+bool hit_sphere(const double *center, double radius, const ray *r) {
+	vec3 oc;
+	oc[0] = r->orig[0] - center[0];
+	oc[1] = r->orig[1] - center[1];
+	oc[2] = r->orig[2] - center[2];
+	double a = dot(r->dir, r->dir);
+	double b = 2.0 * dot(oc, r->dir);
+	double c = dot(oc, oc) - radius*radius;
+	double discriminant = b*b - 4*a*c;
+	return (discriminant > 0);
+}
+
 
 double *ray_color(double *out, ray *r) {
+	if (hit_sphere((point3) {
+	0,0,-1
+}, 0.5, r)) {
+		out[0] = 1;
+		out[1] = 0;
+		out[2] = 0;
+		return out;
+	}
+
+
 	vec3 unit_direction;
 	normalize(unit_direction, r->dir);
 	double t = 0.5*(unit_direction[1] + 1.0);
@@ -19,10 +42,10 @@ double *ray_color(double *out, ray *r) {
 }
 
 
-void write_color(unsigned char *buf, double r, double g, double b) {
-	*buf = (unsigned char)(255 * r);
-	*(buf+1) = (unsigned char)(255 * g);
-	*(buf+2) = (unsigned char)(255 * b);
+void write_color(unsigned char *buf, double *col) {
+	*buf = (unsigned char)(255 * col[0]);
+	*(buf+1) = (unsigned char)(255 * col[1]);
+	*(buf+2) = (unsigned char)(255 * col[2]);
 }
 
 int main(int argc, char *argv[]) {
@@ -37,7 +60,7 @@ int main(int argc, char *argv[]) {
 	const float focal_length = 1.0;
 
 	point3 origin = {0, 0, 0};
-	vec3 horizontal = {0, 0, 0};
+	vec3 horizontal = {viewport_width, 0, 0};
 	vec3 vertical = {0, viewport_height, 0};
 
 	vec3 lower_left_corner;
@@ -50,8 +73,7 @@ int main(int argc, char *argv[]) {
 	r.orig[1] = origin[1];
 	r.orig[2] = origin[2];
 
-	color c;
-
+	color final_color;
 
 	unsigned char *buf = (unsigned char *)malloc(image_width * image_height * 3);
 	unsigned char *tmp_buf = buf;
@@ -71,9 +93,9 @@ int main(int argc, char *argv[]) {
 			r.dir[1] = lower_left_corner[1] + u*horizontal[1] + v*vertical[1] - origin[1];
 			r.dir[2] = lower_left_corner[2] + u*horizontal[2] + v*vertical[2] - origin[2];
 
-			ray_color(c, &r);
+			ray_color(final_color, &r);
 
-			write_color(tmp_buf, c[0], c[1], c[2]);
+			write_color(tmp_buf, final_color);
 			tmp_buf += 3;
 		}
 		time += (double)(clock() - begin) / CLOCKS_PER_SEC;
