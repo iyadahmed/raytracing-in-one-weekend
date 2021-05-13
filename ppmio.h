@@ -3,11 +3,9 @@
 
 #include <stdio.h>
 
-void write_ppm(unsigned char *data, unsigned int width, unsigned int height)
-{
+void write_ppm(unsigned char *data, unsigned int width, unsigned int height) {
 	FILE *fptr = fopen("image.ppm", "wb");
-	if (fptr == NULL)
-	{
+	if (fptr == NULL) {
 		printf("Erorr opening file\n");
 		exit(1);
 	}
