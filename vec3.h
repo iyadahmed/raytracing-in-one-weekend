@@ -3,10 +3,10 @@
 
 #include <math.h>
 
-#define dot(a, b) (a[0]*b[0] + a[1]*b[1] + a[2]*b[2])
-#define length_sq(v) (dot(v, v))
-#define length(v) sqrt(length_sq(v))
-#define printv(v) printf("(%lf, %lf, %lf)\n", v[0], v[1], v[2])
+#define DOT(a, b) (a[0]*b[0] + a[1]*b[1] + a[2]*b[2])
+#define LENSQ(v) (DOT(v, v))
+#define LEN(v) sqrt(LENSQ(v))
+#define PRINTV(v) printf("(%lf, %lf, %lf)\n", v[0], v[1], v[2])
 
 typedef double vec3[3];
 typedef vec3 point3;
@@ -41,7 +41,7 @@ double *scale(double *out, double *v, double s) {
 }
 
 double *normalize(double *out, double *v) {
-	return scale(out, v, 1/length(v));
+	return scale(out, v, 1/LEN(v));
 }
 
 double *cross(double *out, double *u, double *v) {
