@@ -10,8 +10,8 @@ LIBS     = -L"C:/Program Files/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32
 INCS     = -I"C:/Program Files/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include"
 CXXINCS  = -I"C:/Program Files/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"C:/Program Files/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"
 BIN      = raytracing-c.exe
-CXXFLAGS = $(CXXINCS) -m32
-CFLAGS   = $(INCS) -m32
+CXXFLAGS = $(CXXINCS) -march=core2 -m32 -std=c99 -Wall -Wextra -pedantic
+CFLAGS   = $(INCS) -march=core2 -m32 -std=c99 -Wall -Wextra -pedantic
 DEL      = C:\Program Files\Embarcadero\Dev-Cpp\devcpp.exe INTERNAL_DEL
 
 .PHONY: all all-before all-after clean clean-custom

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
+#include <assert.h>
 #include "ppmio.h"
 #include "vec3.h"
 #include "ray.h"
@@ -31,7 +32,9 @@ double *ray_color(double *out, ray *r) {
 //	hit_record rec;
 	double t = hit_sphere((point3) {
 		0,0,-1
-	}, 0.5, r);
+	},
+	0.5,
+	r);
 	if (t > 0.0) {
 		vec3 N;
 		normalize(N, sub(N, ray_at(N, r, t), (vec3) {
@@ -60,7 +63,12 @@ void write_color(unsigned char *buf, double *col) {
 	*(buf+2) = (unsigned char)(255 * col[2]);
 }
 
+void render(unsigned char *buf, unsigned int image_width, unsigned int image_height, ray r) {
+	assert(sizeof(buf) == (image_width * image_height * 3));
+}
+
 int main(int argc, char *argv[]) {
+	test_vector();
 	// Image
 	const float aspect_ratio = 16.0 / 9.0;
 	const unsigned int image_width = 4096;
@@ -85,20 +93,18 @@ int main(int argc, char *argv[]) {
 	r.orig[1] = origin[1];
 	r.orig[2] = origin[2];
 
-	color final_color;
-	final_color[0] = 1;
-	final_color[1] = 0;
-	final_color[2] = 1;
+	color final_color = {1, 0, 1};
 
 	unsigned char *buf = (unsigned char *)malloc(image_width * image_height * 3);
 	if (buf == NULL) {
 		printf("Failed to allocate memory.\n");
 		exit(1);
 	}
+//	render(buf, image_width, image_height);
 	unsigned char *tmp_buf = buf;
-	int i, j;
+	unsigned int i, j = image_height;
 	double u, v;
-	for (j = image_height-1; j >= 0; j--) {
+	while(j--) {
 		printf("\rScanlines remaining: %d", j);
 		fflush(stdout);
 		for (i = 0; i < image_width; i++) {
@@ -115,7 +121,6 @@ int main(int argc, char *argv[]) {
 			write_color(tmp_buf, final_color);
 			tmp_buf += 3;
 		}
-
 	}
 	printf("\nDone.\n");
 	printf("Exporting PPM ...\n");
