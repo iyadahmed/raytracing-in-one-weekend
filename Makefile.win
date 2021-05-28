@@ -12,7 +12,7 @@ CXXINCS  = -I"C:/Program Files/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Pro
 BIN      = raytracing-c.exe
 CXXFLAGS = $(CXXINCS) -m32
 CFLAGS   = $(INCS) -m32
-DEL      = C:\Program Files\Embarcadero\Dev-Cpp\DevCpp.exe INTERNAL_DEL
+DEL      = C:\Program Files\Embarcadero\Dev-Cpp\devcpp.exe INTERNAL_DEL
 
 .PHONY: all all-before all-after clean clean-custom
 
