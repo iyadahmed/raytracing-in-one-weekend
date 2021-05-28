@@ -5,7 +5,7 @@
 #include "ppmio.h"
 #include "vec3.h"
 #include "ray.h"
-#include "sphere.h""
+//#include "sphere.h"
 
 #define LERP(a, b, t) ((1.0-t) + t * b)
 
@@ -28,7 +28,7 @@ double hit_sphere(const double *center, double radius, const ray *r) {
 
 
 double *ray_color(double *out, ray *r) {
-	hit_record rec;
+//	hit_record rec;
 	double t = hit_sphere((point3) {
 		0,0,-1
 	}, 0.5, r);
@@ -63,7 +63,7 @@ void write_color(unsigned char *buf, double *col) {
 int main(int argc, char *argv[]) {
 	// Image
 	const float aspect_ratio = 16.0 / 9.0;
-	const unsigned int image_width = 400;
+	const unsigned int image_width = 4096;
 	const unsigned int image_height = (unsigned int)(image_width / aspect_ratio);
 
 	// Camera
