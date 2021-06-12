@@ -68,7 +68,6 @@ void render(unsigned char *buf, unsigned int image_width, unsigned int image_hei
 }
 
 int main(int argc, char *argv[]) {
-	test_vector();
 	// Image
 	const float aspect_ratio = 16.0 / 9.0;
 	const unsigned int image_width = 4096;

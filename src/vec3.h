@@ -8,16 +8,6 @@
 #define LEN(v) sqrt(LENSQ(v))
 #define PRINTV(v) printf("(%lf, %lf, %lf)\n", v[0], v[1], v[2])
 
-typedef double double4 __attribute__ ((vector_size (4 * sizeof(double))));
-
-void test_vector() {
-	double4 a = {1.0, 1.0, 1.0, 1.0};
-	a += a;
-	printf("%lf\n", a[0]);
-}
-
-// TODO: complete intrinsics
-
 typedef double vec3[3];
 typedef vec3 point3;
 typedef vec3 color;
