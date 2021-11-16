@@ -4,8 +4,8 @@
 #include "hittable.h"
 
 typedef struct hittable_list {
-	hittable object;
-	// TODO
+    hittable object;
+    // TODO
 };
 
 #endif
