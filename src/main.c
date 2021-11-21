@@ -5,19 +5,19 @@
 #include <stdio.h>
 #include <stdint.h>
 
-double lerp(double a, double b, double t)
+static double lerp(double a, double b, double t)
 {
   return (1. - t) * a + t * b;
 }
 
-void write_color(uint8_t *buf, Color3 *color)
+static void write_color(uint8_t *buf, Color3 *color)
 {
   *buf = (uint8_t)(255 * color->r);
   *(buf + 1) = (uint8_t)(255 * color->g);
   *(buf + 2) = (uint8_t)(255 * color->b);
 }
 
-int raytrace()
+static int raytrace()
 {
   // Image
   const float aspect_ratio = 16.0f / 9.0f;
