@@ -20,14 +20,14 @@ void write_color(uint8_t *buf, Color3 *color)
 int raytrace()
 {
   // Image
-  const float aspect_ratio = 16.0 / 9.0;
+  const float aspect_ratio = 16.0f / 9.0f;
   const int image_width = 4096;
   const int image_height = (unsigned int)(image_width / aspect_ratio);
 
   // Camera
-  const float viewport_height = 2.0;
+  const float viewport_height = 2.0f;
   const float viewport_width = aspect_ratio * viewport_height;
-  const float focal_length = 1.0;
+  const float focal_length = 1.0f;
 
   Point3 origin = {0., 0., 0.};
   Vec3 horizontal = {viewport_width, 0., 0.};
