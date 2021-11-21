@@ -3,17 +3,18 @@
 #include "ray.h"
 #include <time.h>
 #include <stdio.h>
+#include <stdint.h>
 
 double lerp(double a, double b, double t)
 {
   return (1. - t) * a + t * b;
 }
 
-void write_color(char *buf, Color3 color)
+void write_color(uint8_t *buf, Color3 color)
 {
-  *buf = (char)(255 * color.r);
-  *(buf + 1) = (char)(255 * color.g);
-  *(buf + 2) = (char)(255 * color.b);
+  *buf = (uint8_t)(255.5 * color.r);
+  *(buf + 1) = (uint8_t)(255.5 * color.g);
+  *(buf + 2) = (uint8_t)(255.5 * color.b);
 }
 
 int raytrace()
@@ -62,7 +63,7 @@ int raytrace()
       r.direction.y = lower_left_corner.y + u * horizontal.y + v * vertical.y - origin.y;
       r.direction.z = lower_left_corner.z + u * horizontal.z + v * vertical.z - origin.z;
 
-      write_color(image_buf_iter, final_color);
+      write_color(image_buf_iter, (Color3){1., 1., 1.});
       image_buf_iter += 3;
     }
   }

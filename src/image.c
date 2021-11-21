@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 
 #include "image.h"
@@ -9,7 +10,7 @@ otherwise it returns NULL */
 Image *create_image(int width, int height)
 {
     Image *image = (Image *)malloc(sizeof(Image));
-    image->data = (char *)malloc(width * height * 3);
+    image->data = (uint8_t *)malloc(width * height * 3 * sizeof(uint8_t));
     if (NULL == image->data)
     {
         puts("Failed to allocate memory for image");
@@ -36,7 +37,7 @@ int write_ppm(char *filepath, Image *image)
         return 1;
     }
     fprintf(file, "P6 %d %d 255\n", image->width, image->height);
-    fwrite(image->data, sizeof(char), image->width * image->height * 3, file);
+    fwrite(image->data, sizeof(uint8_t), image->width * image->height * 3, file);
     fclose(file);
     return 0;
 }
