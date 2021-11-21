@@ -1,15 +1,15 @@
 #ifndef VEC3_H
 #define VEC3_H
 
-typedef union _Vec3
-{
+typedef struct _Vec3 {
     double x, y, z;
-    double r, g, b;
-    double buf[3];
 } Vec3;
 
-typedef Vec3 Color3;
 typedef Vec3 Point3;
+
+typedef struct _Color3 {
+    double r, g, b;
+} Color3;
 
 double v3_dot(Vec3 *a, Vec3 *b);
 double v3_magnitude_sq(Vec3 *v);
