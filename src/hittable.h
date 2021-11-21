@@ -2,24 +2,24 @@
 #define HITTABLE_H
 
 #include "ray.h"
+#include "vec3.h"
 
-typedef struct hit_record {
-    point3 p;
-    vec3 normal;
-    double t;
-    bool front_face;
-} hit_record;
+typedef struct HitRecord {
+    Point3 position;
+    Vec3 normal;
+    int is_front_face;
+} HitRecord;
 
-void set_hit_record_face_normal(hit_record *rec, ray *r, vec3 *outward_normal) {
-    rec->front_face = DOT(r->dir, *outward_normal) < 0;
-    if (rec->front_face) {
-        rec->normal[0] = *outward_normal[0];
-        rec->normal[1] = *outward_normal[1];
-        rec->normal[2] = *outward_normal[2];
+void set_hit_record_face_normal(HitRecord *hit_record, Ray *ray, Vec3 *outward_normal) {
+    hit_record->is_front_face = v3_dot(&ray->direction, outward_normal) < 0;
+    if (hit_record->is_front_face) {
+        hit_record->normal.x = outward_normal->x;
+        hit_record->normal.y = outward_normal->y;
+        hit_record->normal.z = outward_normal->z;
     } else {
-        rec->normal[0] = -*outward_normal[0];
-        rec->normal[1] = -*outward_normal[1];
-        rec->normal[2] = -*outward_normal[2];
+        hit_record->normal.x = -outward_normal->x;
+        hit_record->normal.y = -outward_normal->y;
+        hit_record->normal.z = -outward_normal->z;
     }
 }
 

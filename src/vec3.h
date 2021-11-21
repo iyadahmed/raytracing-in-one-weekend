@@ -1,52 +1,24 @@
 #ifndef VEC3_H
 #define VEC3_H
 
-#include <math.h>
+typedef union _Vec3
+{
+    double x, y, z;
+    double r, g, b;
+    double buf[3];
+} Vec3;
 
-#define DOT(a, b) (a[0] * b[0] + a[1] * b[1] + a[2] * b[2])
-#define LENSQ(v) (DOT(v, v))
-#define LEN(v) sqrt(LENSQ(v))
-#define PRINTV(v) printf("(%lf, %lf, %lf)\n", v[0], v[1], v[2])
+typedef Vec3 Color3;
+typedef Vec3 Point3;
 
-typedef double vec3[3];
-typedef vec3 point3;
-typedef vec3 color;
-
-double *add(double *out, double *a, double *b) {
-    out[0] = a[0] + b[0];
-    out[1] = a[1] + b[1];
-    out[2] = a[2] + b[2];
-    return out;
-}
-
-double *sub(double *out, double *a, double *b) {
-    out[0] = a[0] - b[0];
-    out[1] = a[1] - b[1];
-    out[2] = a[2] - b[2];
-    return out;
-}
-
-double *mul(double *out, double *a, double *b) {
-    out[0] = a[0] * b[0];
-    out[1] = a[1] * b[1];
-    out[2] = a[2] * b[2];
-    return out;
-}
-
-double *scale(double *out, double *v, double s) {
-    out[0] = v[0] * s;
-    out[1] = v[1] * s;
-    out[2] = v[2] * s;
-    return out;
-}
-
-double *normalize(double *out, double *v) { return scale(out, v, 1 / LEN(v)); }
-
-double *cross(double *out, double *u, double *v) {
-    out[0] = u[1] * v[2] - u[2] * v[1];
-    out[1] = u[2] * v[0] - u[0] * v[2];
-    out[2] = u[0] * v[1] - u[1] * v[0];
-    return out;
-}
+double v3_dot(Vec3 *a, Vec3 *b);
+double v3_magnitude_sq(Vec3 *v);
+double v3_magnitude(Vec3 *v);
+void v3_add(Vec3 *out, Vec3 *a, Vec3 *b);
+void v3_sub(Vec3 *out, Vec3 *a, Vec3 *b);
+void v3_mul(Vec3 *out, Vec3 *a, Vec3 *b);
+void v3_scale(Vec3 *out, Vec3 *a, double s);
+void v3_normalize(Vec3 *out, Vec3 *v);
+void v3_cross(Vec3 *out, Vec3 *a, Vec3 *b);
 
 #endif

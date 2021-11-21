@@ -3,11 +3,12 @@
 
 #include "vec3.h"
 
-typedef struct ray {
-    point3 orig;
-    vec3 dir;
-} ray;
+typedef struct _Ray
+{
+    Point3 origin;
+    Vec3 direction;
+} Ray;
 
-double *ray_at(double *out, ray *r, double t) { return add(out, r->orig, scale(out, r->dir, t)); }
+void ray_at(Vec3 *out, Ray *ray, double t);
 
 #endif
