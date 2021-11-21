@@ -29,7 +29,7 @@ void ray_color(Color3 *out, Ray *ray)
   out->b = 1.;
 }
 
-static int raytrace()
+static void raytrace()
 {
   // Image
   const float aspect_ratio = 16.0f / 9.0f;
