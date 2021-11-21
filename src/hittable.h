@@ -8,6 +8,7 @@ typedef struct HitRecord
 {
     Point3 position;
     Vec3 normal;
+    double t;
     int is_front_face;
 } HitRecord;
 
