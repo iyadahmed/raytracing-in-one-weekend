@@ -46,8 +46,7 @@ int raytrace()
   Color3 final_color = {1., 0., 1.};
 
   Image *image = create_image(image_width, image_height);
-
-  char *image_buf_iter = image->data;
+  uint8_t *image_buf_iter = image->data;
 
   int i, j;
   double u, v;
