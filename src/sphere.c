@@ -27,13 +27,13 @@ int hit_sphere(Sphere *sphere, Ray *ray, double t_min, double t_max, HitRecord *
             return 0;
     }
 
+    hit_record->t = root;
     ray_at(&hit_record->position, ray, root);
 
     Vec3 outward_normal;
     v3_sub(&outward_normal, &hit_record->position, &sphere->center);
     v3_scale(&outward_normal, &outward_normal, 1.0 / sphere->radius);
     set_hit_record_face_normal(hit_record, ray, &outward_normal);
-    hit_record->normal = outward_normal;
 
     return 1;
 }
