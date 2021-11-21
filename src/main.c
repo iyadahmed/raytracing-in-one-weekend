@@ -43,7 +43,7 @@ int raytrace()
   r.origin.y = origin.y;
   r.origin.x = origin.z;
 
-  Color3 final_color = {.r = 1., .g = 0., .b = 1.};
+  Color3 final_color = {1., 0., 1.};
 
   Image *image = create_image(image_width, image_height);
 
