@@ -1,6 +1,8 @@
 #include "vec3.h"
 #include "image.h"
 #include "ray.h"
+#include "sphere.h"
+
 #include <time.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -15,6 +17,16 @@ static void write_color(uint8_t *buf, Color3 *color)
   *buf = (uint8_t)(255 * color->r);
   *(buf + 1) = (uint8_t)(255 * color->g);
   *(buf + 2) = (uint8_t)(255 * color->b);
+}
+
+void ray_color(Color3 *out, Ray *ray)
+{
+  Vec3 unit_direction;
+  v3_normalize(&unit_direction, &ray->direction);
+  double t = .5 * (unit_direction.y + 1.);
+  out->r = lerp(1., .5, t);
+  out->g = lerp(1., .7, t);
+  out->b = 1.;
 }
 
 static int raytrace()
@@ -51,6 +63,12 @@ static int raytrace()
   int i, j;
   double u, v;
 
+  Sphere sphere;
+  sphere.center = (Vec3){0., 0., 0.};
+  sphere.radius = 1.;
+
+  HitRecord hit_record;
+
   for (j = image->height; j > 0; j--)
   {
     for (i = 0; i < image->width; i++)
@@ -62,6 +80,8 @@ static int raytrace()
       r.direction.y = lower_left_corner.y + u * horizontal.y + v * vertical.y - origin.y;
       r.direction.z = lower_left_corner.z + u * horizontal.z + v * vertical.z - origin.z;
 
+      // hit_sphere(&sphere, &r, -10., 10., &hit_record);
+      ray_color(&final_color, &r);
       write_color(image_buf_iter, &final_color);
       image_buf_iter += 3;
     }
