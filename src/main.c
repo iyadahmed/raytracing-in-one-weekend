@@ -64,8 +64,8 @@ static int raytrace()
   double u, v;
 
   Sphere sphere;
-  sphere.center = (Vec3){0., 0., 0.};
-  sphere.radius = 1.;
+  sphere.center = (Vec3){0., 0., -1.};
+  sphere.radius = .5;
 
   HitRecord hit_record;
 
@@ -80,8 +80,16 @@ static int raytrace()
       r.direction.y = lower_left_corner.y + u * horizontal.y + v * vertical.y - origin.y;
       r.direction.z = lower_left_corner.z + u * horizontal.z + v * vertical.z - origin.z;
 
-      // hit_sphere(&sphere, &r, -10., 10., &hit_record);
-      ray_color(&final_color, &r);
+      if (hit_sphere(&sphere, &r, 0., 1., &hit_record))
+      {
+        final_color.r = 1.;
+        final_color.g = 0.;
+        final_color.b = 0.;
+      }
+      else
+      {
+        ray_color(&final_color, &r);
+      }
       write_color(image_buf_iter, &final_color);
       image_buf_iter += 3;
     }
