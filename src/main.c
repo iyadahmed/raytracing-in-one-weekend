@@ -10,33 +10,33 @@ double lerp(double a, double b, double t)
   return (1. - t) * a + t * b;
 }
 
-void write_color(uint8_t *buf, Color3 color)
+void write_color(uint8_t *buf, Color3 *color)
 {
-  *buf = (uint8_t)(255.5 * color.r);
-  *(buf + 1) = (uint8_t)(255.5 * color.g);
-  *(buf + 2) = (uint8_t)(255.5 * color.b);
+  *buf = (uint8_t)(255 * color->r);
+  *(buf + 1) = (uint8_t)(255 * color->g);
+  *(buf + 2) = (uint8_t)(255 * color->b);
 }
 
 int raytrace()
 {
   // Image
   const float aspect_ratio = 16.0 / 9.0;
-  const unsigned int image_width = 100;
-  const unsigned int image_height = (unsigned int)(image_width / aspect_ratio);
+  const int image_width = 4096;
+  const int image_height = (unsigned int)(image_width / aspect_ratio);
 
   // Camera
   const float viewport_height = 2.0;
   const float viewport_width = aspect_ratio * viewport_height;
-  const float focal_LEN = 1.0;
+  const float focal_length = 1.0;
 
-  Point3 origin = {.x = 0., .y = 0., .z = 0.};
-  Vec3 horizontal = {.x = viewport_width, .y = 0., .z = 0.};
-  Vec3 vertical = {.x = 0., .y = viewport_height, .z = 0.};
+  Point3 origin = {0., 0., 0.};
+  Vec3 horizontal = {viewport_width, 0., 0.};
+  Vec3 vertical = {0., viewport_height, 0.};
 
   Vec3 lower_left_corner;
   lower_left_corner.x = origin.x - .5 * (horizontal.x + vertical.x);
   lower_left_corner.y = origin.y - .5 * (horizontal.y + vertical.y);
-  lower_left_corner.z = origin.z - .5 * (horizontal.z + vertical.z) - focal_LEN;
+  lower_left_corner.z = origin.z - .5 * (horizontal.z + vertical.z) - focal_length;
 
   Ray r;
   r.origin.x = origin.x;
@@ -63,7 +63,7 @@ int raytrace()
       r.direction.y = lower_left_corner.y + u * horizontal.y + v * vertical.y - origin.y;
       r.direction.z = lower_left_corner.z + u * horizontal.z + v * vertical.z - origin.z;
 
-      write_color(image_buf_iter, (Color3){1., 1., 1.});
+      write_color(image_buf_iter, &final_color);
       image_buf_iter += 3;
     }
   }
