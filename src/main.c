@@ -50,11 +50,9 @@ static void raytrace()
   lower_left_corner.y = origin.y - .5 * (horizontal.y + vertical.y);
   lower_left_corner.z = origin.z - .5 * (horizontal.z + vertical.z) - focal_length;
 
-  Ray r;
-  r.origin.x = origin.x;
-  r.origin.y = origin.y;
-  r.origin.x = origin.z;
-
+  Sphere sphere = {{0., 0., -1.}, .5};
+  HitRecord hit_record = {0};
+  Ray r = {origin, 0.};
   Color3 final_color = {1., 0., 1.};
 
   Image *image = create_image(image_width, image_height);
@@ -62,12 +60,6 @@ static void raytrace()
 
   int i, j;
   double u, v;
-
-  Sphere sphere;
-  sphere.center = (Vec3){0., 0., -1.};
-  sphere.radius = .5;
-
-  HitRecord hit_record;
 
   for (j = image->height; j > 0; j--)
   {
