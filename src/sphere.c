@@ -15,7 +15,9 @@ int hit_sphere(Sphere *sphere, Ray *ray, double t_min, double t_max, HitRecord *
 
     double discriminant = half_b * half_b - a * c;
     if (discriminant < 0)
+    {
         return 0;
+    }
     double sqrtd = sqrt(discriminant);
 
     // Find the nearest root that lies in the acceptable range.
@@ -24,7 +26,9 @@ int hit_sphere(Sphere *sphere, Ray *ray, double t_min, double t_max, HitRecord *
     {
         root = (-half_b + sqrtd) / a;
         if (root < t_min || t_max < root)
+        {
             return 0;
+        }
     }
 
     hit_record->t = root;
