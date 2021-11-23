@@ -33,7 +33,7 @@ static void raytrace()
 {
   // Image
   const float aspect_ratio = 16.0f / 9.0f;
-  const int image_width = 4096;
+  const int image_width = 1280;
   const int image_height = (unsigned int)(image_width / aspect_ratio);
 
   // Camera
@@ -45,7 +45,7 @@ static void raytrace()
   Vec3 horizontal = {viewport_width, 0., 0.};
   Vec3 vertical = {0., viewport_height, 0.};
 
-  Vec3 lower_left_corner;
+  Vec3 lower_left_corner = {0.};
   lower_left_corner.x = origin.x - .5 * (horizontal.x + vertical.x);
   lower_left_corner.y = origin.y - .5 * (horizontal.y + vertical.y);
   lower_left_corner.z = origin.z - .5 * (horizontal.z + vertical.z) - focal_length;
