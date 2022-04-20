@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#include "image.h"
+#include "image.hh"
 
 /* Allocate memory for an Image structure and its data,
 returns a pointer to the image structure on success,
@@ -28,7 +28,7 @@ void free_image(Image *image)
 }
 
 /* Export image as a binary RGB PPM image, returns 0 on success, 1 on failure */
-int write_ppm(char *filepath, Image *image)
+int write_ppm(const char *filepath, Image *image)
 {
     FILE *file = fopen(filepath, "wb");
     if (NULL == file)

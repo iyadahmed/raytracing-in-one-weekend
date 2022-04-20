@@ -12,6 +12,6 @@ typedef struct _Image
 
 Image *create_image(int width, int height);
 void free_image(Image *image);
-int write_ppm(char *filepath, Image *image);
+int write_ppm(const char *filepath, Image *image);
 
 #endif

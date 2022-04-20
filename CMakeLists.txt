@@ -1,13 +1,22 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(raytracing-c)
-add_executable(raytracing_c src/main.c src/image.c src/sphere.c src/vec3.c src/ray.c src/hittable.c)
+project(raytracing_in_one_weekend VERSION 1.0 DESCRIPTION "Raytracing in one weekend" LANGUAGES CXX)
 
-set(TARGET raytracing_c PROPERTY C_STANDARD 99)
-if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
-    target_link_libraries(raytracing_c m)
-    add_compile_options("-Ofast")
-    add_compile_options("-march=native")
+add_executable(render
+    src/main.cc
+    src/image.cc src/image.hh
+    src/sphere.hh
+    src/vec3.hh
+    src/ray.hh
+    src/hittable.hh
+)
+
+target_compile_features(render PUBLIC cxx_std_11)
+set_target_properties(render PROPERTIES CXX_EXTENSIONS OFF)
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_link_libraries(render PUBLIC m)
+    target_compile_options(render PUBLIC "-Ofast;-march=native")
 elseif(MSVC)
-    add_compile_options("/O2")
+    target_compile_options(render PUBLIC "/O2")
 endif()
