@@ -10,8 +10,8 @@ typedef struct _Image
     int height;
 } Image;
 
-Image *create_image(int width, int height);
-void free_image(Image *image);
-int write_ppm(const char *filepath, Image *image);
+Image create_image(int width, int height);
+void free_image(Image &image);
+int write_ppm(const char *filepath, Image &image);
 
 #endif

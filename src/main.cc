@@ -54,15 +54,20 @@ static void raytrace()
     Ray ray(origin, 0.);
     Color3 final_color(1., 0., 1.);
 
-    Image *image = create_image(image_width, image_height);
-    uint8_t *image_buf_iter = image->data;
+    Image image = create_image(image_width, image_height);
+    if (image.data == NULL)
+    {
+        return;
+    }
+
+    uint8_t *image_buf_iter = image.data;
 
     int i, j;
     double u, v;
 
-    for (j = image->height; j > 0; j--)
+    for (j = image.height; j > 0; j--)
     {
-        for (i = 0; i < image->width; i++)
+        for (i = 0; i < image.width; i++)
         {
             u = (double)i / image_width;
             v = (double)j / image_height;
@@ -87,9 +92,7 @@ static void raytrace()
     }
 
     write_ppm("out.ppm", image);
-
     free_image(image);
-    image = NULL;
 }
 
 int main()
