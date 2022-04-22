@@ -72,9 +72,7 @@ static void raytrace()
             u = (double)i / image_width;
             v = (double)j / image_height;
 
-            ray.direction.x = lower_left_corner.x + u * horizontal.x + v * vertical.x - origin.x;
-            ray.direction.y = lower_left_corner.y + u * horizontal.y + v * vertical.y - origin.y;
-            ray.direction.z = lower_left_corner.z + u * horizontal.z + v * vertical.z - origin.z;
+            ray.direction = lower_left_corner + horizontal * u + vertical * v - origin;
 
             if (sphere.hit(ray, 0., 1., hit_record))
             {
